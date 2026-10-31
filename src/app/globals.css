@@ -1,0 +1,195 @@
+@import "tailwindcss";
+
+/* ------------------------------------------------------------------
+   Design tokens — lifted verbatim from the Gumroad-style prototype.
+   Everything downstream (components, utilities) reads from these, so
+   a rebrand is a single-file change.
+------------------------------------------------------------------ */
+@theme {
+  --color-orange: #ff4500;
+  --color-teal: #23a094;
+  --color-yellow: #ffc900;
+  --color-purple: #b388ff;
+  --color-ink: #1a1a1a;
+  --color-cream: #fafaf8;
+  --color-hairline: #e0e0e0;
+
+  --font-sans: var(--font-outfit), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-playfair), ui-serif, Georgia, serif;
+
+  --radius-card: 16px;
+  --radius-panel: 20px;
+
+  --animate-marquee: marquee 20s linear infinite;
+  --animate-pulse-dot: pulse-dot 2s ease-in-out infinite;
+  --animate-bob: bob 2s ease-in-out infinite;
+  --animate-walk-across: walk-across 18s ease-in-out infinite;
+  --animate-leg-swing: leg-swing 0.4s ease-in-out infinite;
+  --animate-body-bounce: body-bounce 0.4s ease-in-out infinite;
+  --animate-glow: glow 1.4s ease-in-out infinite;
+}
+
+@keyframes marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+@keyframes pulse-dot {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.3;
+  }
+}
+@keyframes bob {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+@keyframes walk-across {
+  0% {
+    left: 5%;
+    transform: scaleX(1);
+  }
+  45% {
+    left: 75%;
+    transform: scaleX(1);
+  }
+  50% {
+    left: 75%;
+    transform: scaleX(-1);
+  }
+  95% {
+    left: 5%;
+    transform: scaleX(-1);
+  }
+  100% {
+    left: 5%;
+    transform: scaleX(1);
+  }
+}
+@keyframes leg-swing {
+  0%,
+  100% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(8deg);
+  }
+  75% {
+    transform: rotate(-8deg);
+  }
+}
+@keyframes body-bounce {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-2px);
+  }
+}
+@keyframes glow {
+  0%,
+  100% {
+    opacity: 0.55;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background: #ffffff;
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Keyboard focus is visible everywhere; the prototype's hard-shadow
+     language doubles as the focus treatment. */
+  :focus-visible {
+    outline: 2px solid var(--color-ink);
+    outline-offset: 3px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+@layer components {
+  /* The prototype's signature: an element lifted off the page with a
+     hard offset shadow that it "presses into" on hover. */
+  .press {
+    @apply transition-[transform,box-shadow] duration-100 ease-out;
+  }
+  .press-sm {
+    box-shadow: 3px 3px 0 var(--color-ink);
+  }
+  .press-sm:hover {
+    transform: translate(2px, 2px);
+    box-shadow: 1px 1px 0 var(--color-ink);
+  }
+  .press-md {
+    box-shadow: 4px 4px 0 var(--color-ink);
+  }
+  .press-md:hover {
+    transform: translate(2px, 2px);
+    box-shadow: 2px 2px 0 var(--color-ink);
+  }
+  /* Cards sit raised and settle flat on hover. */
+  .press-lift {
+    transform: translateY(-3px);
+    box-shadow: 6px 6px 0 var(--color-ink);
+    @apply transition-[transform,box-shadow] duration-150 ease-out;
+  }
+  .press-lift:hover {
+    transform: translateY(0);
+    box-shadow: none;
+  }
+  .press-lift-sm {
+    transform: translateY(-2px);
+    box-shadow: 4px 4px 0 var(--color-ink);
+    @apply transition-[transform,box-shadow] duration-100 ease-out;
+  }
+  .press-lift-sm:hover {
+    transform: translateY(0);
+    box-shadow: none;
+  }
+
+  /* On a dark panel the ink shadow disappears, so `press-light` repaints
+     it white. The doubled class outranks the base `press-*` rule. */
+  .press-light.press-sm {
+    box-shadow: 3px 3px 0 var(--color-white, #fff);
+  }
+  .press-light.press-sm:hover {
+    box-shadow: 1px 1px 0 #fff;
+  }
+  .press-light.press-md {
+    box-shadow: 4px 4px 0 #fff;
+  }
+  .press-light.press-md:hover {
+    box-shadow: 2px 2px 0 #fff;
+  }
+}

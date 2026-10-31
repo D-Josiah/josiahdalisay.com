@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Josiah Dalisay — Tech & Marketing</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--orange:#FF4500;--teal:#23A094;--yellow:#FFC900;--purple:#B388FF;--black:#1a1a1a;--white:#FFFFFF;--light:#FAFAF8}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Outfit',sans-serif;background:var(--light);color:var(--black)}
+.page{display:none}.page.active{display:block}
+
+/* NAV */
+nav{display:flex;align-items:center;justify-content:space-between;padding:16px 32px;position:sticky;top:0;background:rgba(250,250,248,.95);backdrop-filter:blur(8px);z-index:100;border-bottom:1.5px solid #eee}
+.logo{width:40px;height:40px;background:var(--orange);border-radius:10px;display:flex;align-items:center;justify-content:center;font-weight:900;color:var(--white);font-size:16px;box-shadow:3px 3px 0 var(--black);cursor:pointer;transition:transform .1s,box-shadow .1s}
+.logo:hover{transform:translate(2px,2px);box-shadow:1px 1px 0 var(--black)}
+.nav-links{display:flex;align-items:center;gap:24px}
+.nav-links a{text-decoration:none;color:var(--black);font-weight:500;font-size:14px;cursor:pointer}
+.nav-links a:hover{color:var(--orange)}
+.nav-cta{background:var(--yellow);color:var(--black);border:1.5px solid var(--black);border-radius:8px;padding:8px 18px;font-weight:700;box-shadow:3px 3px 0 var(--black);transition:transform .1s,box-shadow .1s;cursor:pointer;text-decoration:none;font-size:14px}
+.nav-cta:hover{transform:translate(2px,2px);box-shadow:1px 1px 0 var(--black)}
+
+/* HERO */
+.hero{padding:80px 32px 60px;text-align:center;position:relative}
+.hero h1{font-family:'Playfair Display',serif;font-size:clamp(42px,8vw,80px);letter-spacing:-2px;line-height:1.1;margin-bottom:24px}
+.hero-intro{display:flex;align-items:center;gap:20px;justify-content:center;margin-bottom:28px;flex-wrap:wrap}
+.hero-avatar{width:100px;height:100px;border-radius:50%;border:2.5px solid var(--black);object-fit:cover}
+.hero-intro-text{font-size:17px;color:#555;max-width:420px;text-align:left;line-height:1.6}
+.hero-ctas{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-bottom:16px}
+.btn{display:inline-block;padding:14px 28px;border-radius:10px;font-weight:700;font-size:15px;text-decoration:none;border:2px solid var(--black);cursor:pointer;transition:transform .1s,box-shadow .1s}
+.btn-primary{background:var(--yellow);color:var(--black);box-shadow:4px 4px 0 var(--black)}
+.btn-primary:hover{transform:translate(2px,2px);box-shadow:2px 2px 0 var(--black)}
+.btn-secondary{background:var(--white);color:var(--black);box-shadow:4px 4px 0 var(--black)}
+.btn-secondary:hover{transform:translate(2px,2px);box-shadow:2px 2px 0 var(--black)}
+.credential-tags{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:10px}
+.credential-tag{font-size:14px;font-weight:600;padding:10px 20px;border:1.5px solid var(--black);border-radius:20px;background:var(--white)}
+
+/* MARQUEE */
+.marquee-section{padding:20px 0;overflow:hidden;border-top:1.5px solid #eee;border-bottom:1.5px solid #eee}
+.marquee-label{text-align:center;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:#aaa;margin-bottom:10px}
+.marquee-track{display:flex;gap:40px;animation:scroll 20s linear infinite;width:max-content}
+@keyframes scroll{to{transform:translateX(-50%)}}
+.marquee-track img{height:24px;opacity:.4;filter:grayscale(1)}
+
+/* SERVICES VENN */
+.services-venn{padding:70px 32px;max-width:900px;margin:0 auto}
+.section-header{text-align:center;margin-bottom:36px}
+.section-header h2{font-family:'Playfair Display',serif;font-size:clamp(28px,4vw,42px);letter-spacing:-1.5px}
+.section-header p{color:#888;margin-top:6px;font-size:15px}
+.venn-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.venn-col h3{font-size:18px;margin-bottom:14px;display:flex;align-items:center;gap:8px}
+.venn-col h3 span{width:10px;height:10px;border-radius:50%;display:inline-block}
+.service-item{border:1.5px solid var(--black);border-radius:12px;padding:14px 18px;margin-bottom:10px;font-size:14px;font-weight:500;transform:translateY(-2px);box-shadow:4px 4px 0 var(--black);transition:transform .1s,box-shadow .1s;cursor:default}
+.service-item:hover{transform:translateY(0);box-shadow:none}
+
+/* BENTO PROJECTS */
+.bento-section{padding:70px 32px;max-width:1100px;margin:0 auto}
+.bento-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.bento-card{border:2px solid var(--black);border-radius:16px;padding:24px;position:relative;overflow:hidden;transform:translateY(-3px);box-shadow:6px 6px 0 var(--black);transition:transform .15s,box-shadow .15s}
+.bento-card:hover{transform:translateY(0);box-shadow:none}
+.bento-card h3{font-size:16px;margin-bottom:6px}
+.bento-card .desc{font-size:13px;color:#555;line-height:1.5;margin-bottom:10px}
+.bento-tags{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
+.bento-tag{font-size:11px;font-weight:600;padding:3px 10px;border-radius:12px;border:1px solid rgba(0,0,0,.15)}
+.live-badge{display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:600;color:#27CA40}
+.live-badge::before{content:'';width:6px;height:6px;background:#27CA40;border-radius:50%;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+.mock-browser{border:1.5px solid rgba(0,0,0,.2);border-radius:8px;overflow:hidden;margin-top:12px}
+.mock-bar{display:flex;gap:4px;padding:6px 8px;border-bottom:1px solid rgba(0,0,0,.1)}
+.mock-dot{width:7px;height:7px;border-radius:50%}
+.mock-body{padding:10px}
+.mock-line{height:6px;border-radius:3px;background:rgba(0,0,0,.1);margin-bottom:6px}
+.mock-line.t{width:50%;height:8px;background:rgba(0,0,0,.15)}
+.visit-site{display:inline-block;margin-top:10px;font-size:12px;font-weight:700;color:var(--black);background:var(--yellow);border:1.5px solid var(--black);border-radius:6px;padding:6px 14px;text-decoration:none;box-shadow:3px 3px 0 var(--black);transition:transform .1s,box-shadow .1s;cursor:pointer}
+.visit-site:hover{transform:translateY(1px);box-shadow:1px 1px 0 var(--black)}
+.arrow-doodle{position:absolute}
+
+/* PROCESS */
+.process-section{background:var(--black);color:var(--white);padding:70px 32px;position:relative}
+.process-section .section-header h2{color:var(--white)}
+.process-section .section-header p{color:rgba(255,255,255,.5)}
+.process-steps{display:flex;gap:20px;max-width:900px;margin:0 auto;justify-content:center;flex-wrap:wrap}
+.process-step{flex:1;min-width:200px;text-align:center;position:relative;padding:20px}
+.step-num{font-family:'Playfair Display',serif;font-size:36px;color:var(--yellow);margin-bottom:8px}
+.process-step h3{margin-bottom:6px;font-size:16px}
+.process-step p{font-size:13px;color:rgba(255,255,255,.6);line-height:1.5}
+.step-arrow{position:absolute;right:-16px;top:50%;font-size:20px;color:var(--yellow)}
+
+/* CTA */
+.cta-section{padding:90px 32px;text-align:center}
+.cta-section h2{font-family:'Playfair Display',serif;font-size:clamp(32px,5vw,58px);letter-spacing:-2px;margin-bottom:14px}
+.cta-section p{font-size:17px;color:#666;margin-bottom:32px;max-width:480px;margin-left:auto;margin-right:auto}
+
+/* CONTACT FORM */
+.contact-form{max-width:500px;margin:0 auto;display:flex;flex-direction:column;gap:14px;text-align:left}
+.contact-form input,.contact-form textarea{width:100%;padding:14px 18px;border:2px solid var(--black);border-radius:10px;font-family:'Outfit',sans-serif;font-size:15px;background:var(--white);transition:box-shadow .15s;outline:none}
+.contact-form input:focus,.contact-form textarea:focus{box-shadow:4px 4px 0 var(--yellow)}
+.contact-form textarea{resize:vertical;min-height:120px}
+
+/* SEPARATOR */
+.separator{max-width:1100px;margin:0 auto;border:none;border-top:1.5px solid #e0e0e0}
+
+/* FOOTER */
+footer{background:var(--white);padding:36px 32px;text-align:center;border-top:1.5px solid #e0e0e0}
+@keyframes fadeIn{to{opacity:1}}
+
+/* RESPONSIVE */
+@media(max-width:768px){
+  .bento-grid{grid-template-columns:1fr 1fr}
+  .venn-grid{grid-template-columns:1fr}
+  .nav-links a:not(.nav-cta){display:none}
+  .hero h1{font-size:32px}
+  .process-section .section-header+div{grid-template-columns:1fr!important}
+}
+@media(max-width:480px){
+  .bento-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="logo" onclick="showPage('home')">JD</div>
+  <div class="nav-links">
+    <a onclick="showPage('home')">Home</a>
+    <a onclick="goSection('projects')">Projects</a>
+    <a onclick="showPage('builds')">Builds & Blogs</a>
+    <a onclick="goSection('about')">About</a>
+    <a class="nav-cta" href="#contact">Let's Talk</a>
+  </div>
+</nav>
+
+<!-- HOME PAGE -->
+<div class="page active" id="page-home">
+
+<section class="hero">
+  <h1>Trained in <span style="color:var(--yellow)">code.</span><br>Fluent in <span style="color:var(--orange)">marketing.</span></h1>
+  <div class="hero-intro">
+    <img class="hero-avatar" src="data:image/jpeg;base64,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" alt="Josiah Dalisay">
+    <p class="hero-intro-text">Hi, I'm Josiah. If you're looking for someone who can code and gets marketing, that's me.</p>
+  </div>
+  <div class="hero-ctas">
+    <a class="btn btn-primary" href="#contact">Reach Out</a>
+  </div>
+  <div class="credential-tags">
+    <span class="credential-tag">Computer Science Background</span>
+    <span class="credential-tag">Marketing Agency Experience</span>
+    <span class="credential-tag">HubSpot Certified</span>
+  </div>
+</section>
+
+<!-- TOOLS MARQUEE -->
+<div class="marquee-section">
+  <div class="marquee-label">Tools I Use</div>
+  <div style="overflow:hidden"><div class="marquee-track">
+    <img src="https://cdn.simpleicons.org/react/61DAFB" alt="React">
+    <img src="https://cdn.simpleicons.org/nextdotjs/000" alt="Next.js">
+    <img src="https://cdn.simpleicons.org/wordpress/21759B" alt="WordPress">
+    <img src="https://cdn.simpleicons.org/hubspot/FF7A59" alt="HubSpot">
+    <img src="https://cdn.simpleicons.org/supabase/3FCF8E" alt="Supabase">
+    <img src="https://cdn.simpleicons.org/vercel/000" alt="Vercel">
+    <img src="https://cdn.simpleicons.org/zapier/FF4A00" alt="Zapier">
+    <img src="https://cdn.simpleicons.org/googleads/4285F4" alt="Google Ads">
+    <img src="https://cdn.simpleicons.org/meta/0081FB" alt="Meta">
+    <img src="https://cdn.simpleicons.org/figma/F24E1E" alt="Figma">
+    <img src="https://cdn.simpleicons.org/typescript/3178C6" alt="TypeScript">
+    <img src="https://cdn.simpleicons.org/googleanalytics/E37400" alt="Analytics">
+    <img src="https://cdn.simpleicons.org/react/61DAFB" alt="React">
+    <img src="https://cdn.simpleicons.org/nextdotjs/000" alt="Next.js">
+    <img src="https://cdn.simpleicons.org/wordpress/21759B" alt="WordPress">
+    <img src="https://cdn.simpleicons.org/hubspot/FF7A59" alt="HubSpot">
+    <img src="https://cdn.simpleicons.org/supabase/3FCF8E" alt="Supabase">
+    <img src="https://cdn.simpleicons.org/vercel/000" alt="Vercel">
+  </div></div>
+</div>
+
+<!-- WHAT I DO -->
+<section class="services-venn">
+  <div class="section-header"><h2>What I do</h2><p>Two disciplines. One person.</p></div>
+  <div class="venn-grid">
+    <div class="venn-col">
+      <h3><span style="background:var(--teal)"></span> ⚙️ Tech</h3>
+      <div class="service-item" style="background:var(--teal);color:#fff;border-color:var(--teal)" onclick="showPage('tech')">Custom builds</div>
+      <div class="service-item" style="background:var(--teal);color:#fff;border-color:var(--teal)" onclick="showPage('tech')">Web development</div>
+      <div class="service-item" style="background:var(--teal);color:#fff;border-color:var(--teal)" onclick="showPage('tech')">HubSpot integrations</div>
+      <div class="service-item" style="background:var(--teal);color:#fff;border-color:var(--teal)" onclick="showPage('tech')">HubSpot setups & migrations</div>
+    </div>
+    <div class="venn-col">
+      <h3><span style="background:var(--orange)"></span> 📣 Marketing</h3>
+      <div class="service-item" style="background:var(--orange);color:#fff;border-color:var(--orange)" onclick="showPage('marketing')">Paid ads setup</div>
+      <div class="service-item" style="background:var(--orange);color:#fff;border-color:var(--orange)" onclick="showPage('marketing')">Email marketing & reporting</div>
+      <div class="service-item" style="background:var(--orange);color:#fff;border-color:var(--orange)" onclick="showPage('marketing')">Funnels & landing pages</div>
+      <div class="service-item" style="background:var(--orange);color:#fff;border-color:var(--orange)" onclick="showPage('marketing')">Marketing automation</div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section class="bento-section" id="projects">
+  <div class="section-header"><h2 style="display:inline-flex;align-items:center;gap:12px">Projects <svg viewBox="52 50 190 152" xmlns="http://www.w3.org/2000/svg" style="width:60px"><g style="animation:mascotBounce 2s ease-in-out infinite;transform-origin:170px 130px"><line x1="176" y1="102" x2="178" y2="88" stroke="#1a1a1a" stroke-width="2.5" stroke-linecap="round"/><circle cx="178" cy="85" r="4.5" fill="#FFC900" stroke="#1a1a1a" stroke-width="2"/><rect x="130" y="102" width="88" height="56" rx="26" fill="#FF4500" stroke="#1a1a1a" stroke-width="2.5" transform="rotate(-6 174 130)"/><g transform="rotate(-6 174 130)"><path d="M130 123 C130 109 140 102 156 102 L192 102 C208 102 218 109 218 123 Z" fill="#1a1a1a"/><rect x="140" y="110" width="22" height="15" rx="6" fill="#FFF" stroke="#1a1a1a" stroke-width="2.5"/><rect x="174" y="110" width="22" height="15" rx="6" fill="#FFF" stroke="#1a1a1a" stroke-width="2.5"/><g><animate attributeName="opacity" dur="5s" repeatCount="indefinite" values="1;1;0;0;1" keyTimes="0;0.4;0.5;0.9;1"/><ellipse cx="148" cy="119" rx="4" ry="3" fill="#1a1a1a"/><ellipse cx="182" cy="119" rx="4" ry="3" fill="#1a1a1a"/><circle cx="150" cy="117" r="1.3" fill="#FFF"/><circle cx="184" cy="117" r="1.3" fill="#FFF"/></g><g><animate attributeName="opacity" dur="5s" repeatCount="indefinite" values="0;0;1;1;0" keyTimes="0;0.4;0.5;0.9;1"/><ellipse cx="150" cy="114" rx="4" ry="3" fill="#1a1a1a"/><ellipse cx="180" cy="121" rx="4" ry="3" fill="#1a1a1a"/><text x="228" y="100" font-family="monospace" font-size="14" font-weight="500" fill="#1a1a1a">?</text></g><ellipse cx="142" cy="138" rx="6" ry="3" fill="#FF4500" opacity=".22"/><g><animate attributeName="opacity" dur="5s" repeatCount="indefinite" values="1;1;0;0;1" keyTimes="0;0.4;0.5;0.9;1"/><path d="M162 140 C166 145 174 145 178 140" fill="none" stroke="#1a1a1a" stroke-width="2.2" stroke-linecap="round"/></g><g><animate attributeName="opacity" dur="5s" repeatCount="indefinite" values="0;0;1;1;0" keyTimes="0;0.4;0.5;0.9;1"/><path d="M162 142 C166 138 171 143 177 139" fill="none" stroke="#1a1a1a" stroke-width="2.2" stroke-linecap="round"/></g></g></g><g transform="translate(94 170) rotate(-4) scale(1.08)"><rect x="-24" y="-1" width="52" height="5" rx="2.5" fill="#FAFAF8" stroke="#1a1a1a" stroke-width="1.4"/><rect x="-21" y="-27" width="38" height="26" rx="3" fill="#1a1a1a" stroke="#1a1a1a" stroke-width="1.6"/><rect x="-18.5" y="-24" width="33" height="20" rx="2" fill="#1a1a1a"/><line x1="-15" y1="-18" x2="-1" y2="-18" stroke="#23A094" stroke-width="1.6" stroke-linecap="round"/><line x1="-15" y1="-13" x2="8" y2="-13" stroke="#FFC900" stroke-width="1.6" stroke-linecap="round"/><line x1="-12" y1="-8" x2="4" y2="-8" stroke="#FF4500" stroke-width="1.6" stroke-linecap="round"/></g><path d="M196 152 C206 160 210 168 212 176" fill="none" stroke="#1a1a1a" stroke-width="5.5" stroke-linecap="round"/><path d="M178 156 C184 164 187 172 188 180" fill="none" stroke="#1a1a1a" stroke-width="5.5" stroke-linecap="round"/><ellipse cx="214" cy="178" rx="7" ry="4" fill="#FF4500" stroke="#1a1a1a" stroke-width="1.8"/><ellipse cx="188" cy="182" rx="7" ry="4" fill="#FF4500" stroke="#1a1a1a" stroke-width="1.8"/><path d="M156 150 C148 158 138 166 126 170" fill="none" stroke="#1a1a1a" stroke-width="5.5" stroke-linecap="round"/><ellipse cx="119" cy="171" rx="7" ry="4" fill="#FF4500" stroke="#1a1a1a" stroke-width="1.8"/><path d="M160 156 C152 168 146 178 144 184" fill="none" stroke="#1a1a1a" stroke-width="5.5" stroke-linecap="round"/><ellipse cx="142" cy="186" rx="7" ry="4" fill="#FF4500" stroke="#1a1a1a" stroke-width="1.8"/></svg></h2></div>
+  <div class="bento-grid">
+    <div class="bento-card" style="background:var(--teal);color:var(--white);grid-column:span 2">
+      <div style="display:flex;justify-content:space-between;align-items:start">
+        <div><span class="bento-tag" style="background:rgba(255,255,255,.2);color:#fff;border:none">Tech + Marketing</span></div>
+        <span class="live-badge" style="background:#27CA40;color:#fff;padding:4px 12px;border-radius:20px;font-size:12px;font-weight:700;display:inline-flex;align-items:center;gap:5px"><span style="width:7px;height:7px;background:#fff;border-radius:50%;display:inline-block;animation:pulse 2s infinite"></span> Live</span>
+      </div>
+      <h3 style="margin-top:10px">LSAT Academy</h3>
+      <p class="desc" style="color:rgba(255,255,255,.8)">Full marketing system — website, CRM, funnels, Google Ads, email sequences.</p>
+      <div class="mock-browser" style="background:#fff"><div class="mock-bar" style="background:#fff"><span class="mock-dot" style="background:#FF5F56"></span><span class="mock-dot" style="background:#FFBD2E"></span><span class="mock-dot" style="background:#27CA40"></span></div><div class="mock-body" style="min-height:60px;background:#fff"><div class="mock-line t"></div><div class="mock-line" style="width:75%"></div><div class="mock-line" style="width:60%"></div><a class="visit-site" href="#" target="_blank">Visit Site ↗</a></div></div>
+    </div>
+    <div class="bento-card" style="background:var(--orange);color:var(--white)">
+      <div class="bento-tags"><span class="bento-tag" style="background:#FF7A59;color:#fff;border:none">HubSpot</span></div>
+      <h3 style="margin-top:10px">HubSpot × Xero</h3>
+      <p class="desc" style="color:rgba(255,255,255,.8)">Custom integration syncing invoices, contacts, and deals between platforms.</p>
+      <a class="visit-site" href="#" onclick="showPage('builds')" style="margin-top:14px;background:var(--white);color:var(--black)">Read the Build Log ↗</a>
+    </div>
+    <div class="bento-card" style="background:var(--purple);color:var(--white)">
+      <div class="bento-tags"><span class="bento-tag" style="background:rgba(255,255,255,.2);color:#fff;border:none">HubSpot</span><span class="bento-tag" style="background:rgba(255,255,255,.2);color:#fff;border:none">Sales Ops</span></div>
+      <h3 style="margin-top:10px">Round Robin Allocation</h3>
+      <p class="desc" style="color:rgba(255,255,255,.8)">Automated lead routing system for balanced sales team distribution.</p>
+    </div>
+    <div class="bento-card" style="background:var(--teal);color:var(--white)">
+      <div class="bento-tags"><span class="bento-tag" style="background:rgba(255,255,255,.2);color:#fff;border:none">HubSpot</span><span class="bento-tag" style="background:rgba(255,255,255,.2);color:#fff;border:none">Webhooks</span></div>
+      <h3 style="margin-top:10px">Calendly Automation</h3>
+      <p class="desc" style="color:rgba(255,255,255,.8)">Webhook-driven workflows connecting Calendly events to HubSpot CRM.</p>
+    </div>
+    <div class="bento-card" style="background:var(--black);color:var(--white)">
+      <div class="bento-tags"><span class="bento-tag" style="background:rgba(255,255,255,.1);color:rgba(255,255,255,.8);border:none">HubSpot</span><span class="bento-tag" style="background:rgba(255,255,255,.1);color:rgba(255,255,255,.8);border:none">Square</span><span class="bento-tag" style="background:rgba(255,255,255,.1);color:rgba(255,255,255,.8);border:none">Automation</span></div>
+      <h3 style="margin-top:10px">Square Automation</h3>
+      <p class="desc" style="color:rgba(255,255,255,.7)">Payment syncing and automated receipt workflows with Square + HubSpot.</p>
+    </div>
+  </div>
+  <div style="text-align:center;margin-top:28px">
+    <a class="btn btn-secondary" onclick="showPage('builds')" style="cursor:pointer">See More →</a>
+  </div>
+</section>
+
+<hr class="separator">
+
+<!-- BUILDS & BLOGS -->
+<section style="padding:70px 32px;max-width:900px;margin:0 auto">
+  <div class="section-header"><h2>Builds & Blogs</h2><p>I build things. Then I write about how I built them.</p></div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px">
+    <div class="bento-card" style="background:var(--yellow);cursor:pointer" onclick="showPage('builds')">
+      <span style="font-size:32px;display:block;margin-bottom:12px">💻</span>
+      <h3>Builds</h3>
+      <p class="desc">Technical deep dives into projects I've shipped — what I used, why I used it, and what I'd do differently.</p>
+    </div>
+    <div class="bento-card" style="background:var(--light);cursor:pointer" onclick="showPage('builds')">
+      <span style="font-size:32px;display:block;margin-bottom:12px">✍️</span>
+      <h3>Blogs</h3>
+      <p class="desc">Lessons from the field — HubSpot tips, automation patterns, marketing ops, and things I've figured out the hard way.</p>
+    </div>
+  </div>
+  <div style="text-align:center;margin-top:28px">
+    <a class="btn btn-primary" onclick="showPage('builds')" style="cursor:pointer">Read the Build Log →</a>
+  </div>
+</section>
+
+<hr class="separator">
+
+<!-- CTA + CONTACT FORM -->
+<section class="cta-section" id="contact">
+  <h2>Let's build <em>something</em> together.</h2>
+  <div style="max-width:560px;margin:0 auto;position:relative">
+    <!-- Bug Mascot walking on top of form with 5 emotes -->
+    <div style="max-width:560px;margin:0 auto;position:relative;height:55px;overflow:visible">
+      <svg viewBox="70 25 145 120" xmlns="http://www.w3.org/2000/svg" style="width:70px;position:absolute;z-index:2;bottom:0;animation:walkAcross 18s ease-in-out infinite">
+        <style>
+          @keyframes walkAcross{0%{left:5%;transform:scaleX(1)}45%{left:75%;transform:scaleX(1)}50%{left:75%;transform:scaleX(-1)}95%{left:5%;transform:scaleX(-1)}100%{left:5%;transform:scaleX(1)}}
+          @keyframes legW{0%,100%{transform:rotate(0deg)}25%{transform:rotate(8deg)}75%{transform:rotate(-8deg)}}
+          @keyframes bodyB{0%,100%{transform:translateY(0)}50%{transform:translateY(-2px)}}
+          @keyframes glw{0%,100%{opacity:.55}50%{opacity:1}}
+        </style>
+        <g style="animation:bodyB 0.4s ease-in-out infinite">
+          <g style="animation:legW .4s ease-in-out infinite;transform-origin:106px 105px"><path d="M106 105 C96 115 90 123 86 131" fill="none" stroke="#1a1a1a" stroke-width="5.5" stroke-linecap="round"/><ellipse cx="84" cy="133" rx="7" ry="4" fill="#FF4500" stroke="#1a1a1a" stroke-width="1.8"/></g>
+          <g style="animation:legW .4s ease-in-out infinite .1s;transform-origin:120px 109px"><path d="M120 109 C113 119 108 127 106 135" fill="none" stroke="#1a1a1a" stroke-width="5.5" stroke-linecap="round"/><ellipse cx="105" cy="137" rx="7" ry="4" fill="#FF4500" stroke="#1a1a1a" stroke-width="1.8"/></g>
+          <g style="animation:legW .4s ease-in-out infinite .2s;transform-origin:160px 109px"><path d="M160 109 C167 119 172 127 174 135" fill="none" stroke="#1a1a1a" stroke-width="5.5" stroke-linecap="round"/><ellipse cx="175" cy="137" rx="7" ry="4" fill="#FF4500" stroke="#1a1a1a" stroke-width="1.8"/></g>
+          <g style="animation:legW .4s ease-in-out infinite .3s;transform-origin:174px 105px"><path d="M174 105 C184 115 190 123 194 131" fill="none" stroke="#1a1a1a" stroke-width="5.5" stroke-linecap="round"/><ellipse cx="196" cy="133" rx="7" ry="4" fill="#FF4500" stroke="#1a1a1a" stroke-width="1.8"/></g>
+          <line x1="140" y1="53" x2="140" y2="39" stroke="#1a1a1a" stroke-width="2.5" stroke-linecap="round"/>
+          <circle cx="140" cy="36" r="4.5" fill="#FFC900" stroke="#1a1a1a" stroke-width="2"/>
+          <rect x="96" y="53" width="88" height="58" rx="27" fill="#FF4500" stroke="#1a1a1a" stroke-width="2.5"/>
+          <path d="M96 75 C96 60 106 53 123 53 L157 53 C174 53 184 60 184 75 Z" fill="#1a1a1a"/>
+          <ellipse cx="108" cy="89" rx="6" ry="3" fill="#FF4500" opacity=".22"/><ellipse cx="172" cy="89" rx="6" ry="3" fill="#FF4500" opacity=".22"/>
+          <!-- 1: DEFAULT -->
+          <g><animate attributeName="opacity" dur="18s" repeatCount="indefinite" values="1;1;0;0;0;0;0;0;0;0;0;0;1" keyTimes="0;0.14;0.167;0.31;0.333;0.48;0.5;0.64;0.667;0.81;0.833;0.97;1"/>
+            <rect x="112" y="61" width="22" height="15" rx="6" fill="#FFF" stroke="#1a1a1a" stroke-width="2.5"/><rect x="146" y="61" width="22" height="15" rx="6" fill="#FFF" stroke="#1a1a1a" stroke-width="2.5"/>
+            <ellipse cx="124" cy="69" rx="4" ry="3" fill="#1a1a1a"/><ellipse cx="158" cy="69" rx="4" ry="3" fill="#1a1a1a"/>
+            <circle cx="126" cy="67" r="1.3" fill="#FFF"/><circle cx="160" cy="67" r="1.3" fill="#FFF"/>
+            <path d="M132 90 C136 94 144 94 148 90" fill="none" stroke="#1a1a1a" stroke-width="2.2" stroke-linecap="round"/>
+          </g>
+          <!-- 2: CODING -->
+          <g><animate attributeName="opacity" dur="18s" repeatCount="indefinite" values="0;0;1;1;0;0;0;0;0;0;0;0;0" keyTimes="0;0.14;0.167;0.31;0.333;0.48;0.5;0.64;0.667;0.81;0.833;0.97;1"/>
+            <rect x="112" y="61" width="22" height="15" rx="6" fill="#FFF" stroke="#1a1a1a" stroke-width="2.5"/><rect x="146" y="61" width="22" height="15" rx="6" fill="#FFF" stroke="#1a1a1a" stroke-width="2.5"/>
+            <text x="123" y="73" text-anchor="middle" font-family="monospace" font-size="11" font-weight="500" fill="#1a1a1a">&lt;/</text>
+            <text x="157" y="73" text-anchor="middle" font-family="monospace" font-size="11" font-weight="500" fill="#1a1a1a">&gt;</text>
+            <line x1="133" y1="91" x2="147" y2="91" stroke="#1a1a1a" stroke-width="2.2" stroke-linecap="round"/>
+          </g>
+          <!-- 3: CONFUSED -->
+          <g><animate attributeName="opacity" dur="18s" repeatCount="indefinite" values="0;0;0;0;1;1;0;0;0;0;0;0;0" keyTimes="0;0.14;0.167;0.31;0.333;0.48;0.5;0.64;0.667;0.81;0.833;0.97;1"/>
+            <rect x="112" y="61" width="22" height="15" rx="6" fill="#FFF" stroke="#1a1a1a" stroke-width="2.5"/><rect x="146" y="61" width="22" height="15" rx="6" fill="#FFF" stroke="#1a1a1a" stroke-width="2.5"/>
+            <ellipse cx="126" cy="65" rx="4" ry="3" fill="#1a1a1a"/><ellipse cx="156" cy="72" rx="4" ry="3" fill="#1a1a1a"/>
+            <path d="M132 93 C136 89 141 94 147 90" fill="none" stroke="#1a1a1a" stroke-width="2.2" stroke-linecap="round"/>
+            <text x="196" y="43" font-family="monospace" font-size="16" font-weight="500" fill="#1a1a1a">?</text>
+          </g>
+          <!-- 4: DIZZY -->
+          <g><animate attributeName="opacity" dur="18s" repeatCount="indefinite" values="0;0;0;0;0;0;1;1;0;0;0;0;0" keyTimes="0;0.14;0.167;0.31;0.333;0.48;0.5;0.64;0.667;0.81;0.833;0.97;1"/>
+            <rect x="112" y="61" width="22" height="15" rx="6" fill="#FFF" stroke="#1a1a1a" stroke-width="2.5"/><rect x="146" y="61" width="22" height="15" rx="6" fill="#FFF" stroke="#1a1a1a" stroke-width="2.5"/>
+            <line x1="119" y1="64" x2="129" y2="74" stroke="#1a1a1a" stroke-width="2.5" stroke-linecap="round"/><line x1="129" y1="64" x2="119" y2="74" stroke="#1a1a1a" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="151" y1="64" x2="161" y2="74" stroke="#1a1a1a" stroke-width="2.5" stroke-linecap="round"/><line x1="161" y1="64" x2="151" y2="74" stroke="#1a1a1a" stroke-width="2.5" stroke-linecap="round"/>
+            <path d="M130 91 C133 87 137 95 140 91 C143 87 147 95 150 91" fill="none" stroke="#1a1a1a" stroke-width="2.2" stroke-linecap="round"/>
+            <circle cx="182" cy="37" r="4" fill="none" stroke="#FFC900" stroke-width="2"/><circle cx="196" cy="45" r="3" fill="none" stroke="#FFC900" stroke-width="2"/>
+          </g>
+          <!-- 5: AHA -->
+          <g><animate attributeName="opacity" dur="18s" repeatCount="indefinite" values="0;0;0;0;0;0;0;0;1;1;0;0;0" keyTimes="0;0.14;0.167;0.31;0.333;0.48;0.5;0.64;0.667;0.81;0.833;0.97;1"/>
+            <rect x="112" y="61" width="22" height="15" rx="6" fill="#FFF" stroke="#1a1a1a" stroke-width="2.5"/><rect x="146" y="61" width="22" height="15" rx="6" fill="#FFF" stroke="#1a1a1a" stroke-width="2.5"/>
+            <circle cx="124" cy="68" r="4.6" fill="#1a1a1a"/><circle cx="158" cy="68" r="4.6" fill="#1a1a1a"/>
+            <circle cx="126" cy="66" r="1.6" fill="#FFF"/><circle cx="160" cy="66" r="1.6" fill="#FFF"/>
+            <path d="M132 88 C136 96 144 96 148 88 Z" fill="#1a1a1a"/>
+            <g style="animation:glw 1.4s ease-in-out infinite">
+              <path d="M185 41 C185 34 190 29 196 29 C202 29 207 34 207 41 C207 46 203 48 203 52 L189 52 C189 48 185 46 185 41 Z" fill="#FFC900" stroke="#1a1a1a" stroke-width="2"/>
+              <line x1="190" y1="56" x2="202" y2="56" stroke="#1a1a1a" stroke-width="2" stroke-linecap="round"/>
+              <line x1="196" y1="21" x2="196" y2="15" stroke="#FFC900" stroke-width="2.4" stroke-linecap="round"/>
+              <line x1="212" y1="27" x2="217" y2="23" stroke="#FFC900" stroke-width="2.4" stroke-linecap="round"/>
+              <line x1="180" y1="27" x2="175" y2="23" stroke="#FFC900" stroke-width="2.4" stroke-linecap="round"/>
+            </g>
+          </g>
+          <!-- 6: LAPTOP CRAWL (from 3b) -->
+          <g><animate attributeName="opacity" dur="18s" repeatCount="indefinite" values="0;0;0;0;0;0;0;0;0;0;1;1;0" keyTimes="0;0.14;0.167;0.31;0.333;0.48;0.5;0.64;0.667;0.81;0.833;0.97;1"/>
+            <!-- laptop on ground -->
+            <g transform="translate(88 108) rotate(-4) scale(.7)">
+              <rect x="-24" y="-1" width="52" height="5" rx="2.5" fill="#FAFAF8" stroke="#1a1a1a" stroke-width="1.4"/>
+              <rect x="-21" y="-27" width="38" height="26" rx="3" fill="#1a1a1a" stroke="#1a1a1a" stroke-width="1.6"/>
+              <rect x="-18.5" y="-24" width="33" height="20" rx="2" fill="#1a1a1a"/>
+              <g style="animation:glw 2s ease-in-out infinite">
+                <line x1="-15" y1="-18" x2="-1" y2="-18" stroke="#23A094" stroke-width="1.6" stroke-linecap="round"/>
+                <line x1="-15" y1="-13" x2="8" y2="-13" stroke="#FFC900" stroke-width="1.6" stroke-linecap="round"/>
+                <line x1="-12" y1="-8" x2="4" y2="-8" stroke="#FF4500" stroke-width="1.6" stroke-linecap="round"/>
+              </g>
+            </g>
+            <!-- eyes looking at laptop -->
+            <rect x="112" y="61" width="22" height="15" rx="6" fill="#FFF" stroke="#1a1a1a" stroke-width="2.5"/><rect x="146" y="61" width="22" height="15" rx="6" fill="#FFF" stroke="#1a1a1a" stroke-width="2.5"/>
+            <ellipse cx="121" cy="71" rx="4" ry="3" fill="#1a1a1a"/><ellipse cx="153" cy="71" rx="4" ry="3" fill="#1a1a1a"/>
+            <circle cx="120" cy="70" r="1.3" fill="#FFF"/><circle cx="152" cy="70" r="1.3" fill="#FFF"/>
+            <path d="M132 90 C136 94 144 94 148 90" fill="none" stroke="#1a1a1a" stroke-width="2.2" stroke-linecap="round"/>
+          </g>
+        </g>
+      </svg>
+    </div>
+    <div style="border:2px solid var(--black);border-radius:20px;padding:36px;background:var(--white);box-shadow:6px 6px 0 var(--yellow);text-align:left;position:relative;z-index:1">
+      <div class="contact-form">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
+          <input type="text" placeholder="Your name" required>
+          <input type="email" placeholder="Your email" required>
+        </div>
+        <input type="text" placeholder="What do you need help with?">
+        <textarea placeholder="Tell me a bit more about your project..."></textarea>
+        <button class="btn btn-primary" type="button" style="width:100%;text-align:center;border:2px solid var(--black)" onclick="alert('Thanks! I\'ll get back to you soon.')">Send Message →</button>
+      </div>
+    </div>
+  </div>
+  <!-- Back to top mascot -->
+  <div style="display:flex;justify-content:flex-end;margin-top:16px;max-width:560px;margin-left:auto;margin-right:auto">
+    <div onclick="bugConfetti(event);setTimeout(function(){window.scrollTo({top:0,behavior:'smooth'})},600)" style="cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:2px;animation:mascotBounce 2s ease-in-out infinite">
+      <style>@keyframes mascotBounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}</style>
+      <svg viewBox="70 25 150 125" xmlns="http://www.w3.org/2000/svg" style="width:50px">
+        <g>
+          <g><path d="M106 105 C96 115 90 123 86 131" fill="none" stroke="#1a1a1a" stroke-width="5.5" stroke-linecap="round"/><ellipse cx="84" cy="133" rx="7" ry="4" fill="#FF4500" stroke="#1a1a1a" stroke-width="1.8"/></g>
+          <g><path d="M120 109 C113 119 108 127 106 135" fill="none" stroke="#1a1a1a" stroke-width="5.5" stroke-linecap="round"/><ellipse cx="105" cy="137" rx="7" ry="4" fill="#FF4500" stroke="#1a1a1a" stroke-width="1.8"/></g>
+          <g><path d="M160 109 C167 119 172 127 174 135" fill="none" stroke="#1a1a1a" stroke-width="5.5" stroke-linecap="round"/><ellipse cx="175" cy="137" rx="7" ry="4" fill="#FF4500" stroke="#1a1a1a" stroke-width="1.8"/></g>
+          <g><path d="M174 105 C184 115 190 123 194 131" fill="none" stroke="#1a1a1a" stroke-width="5.5" stroke-linecap="round"/><ellipse cx="196" cy="133" rx="7" ry="4" fill="#FF4500" stroke="#1a1a1a" stroke-width="1.8"/></g>
+          <line x1="140" y1="53" x2="140" y2="39" stroke="#1a1a1a" stroke-width="2.5" stroke-linecap="round"/>
+          <circle cx="140" cy="36" r="4.5" fill="#FFC900" stroke="#1a1a1a" stroke-width="2"/>
+          <rect x="96" y="53" width="88" height="58" rx="27" fill="#FF4500" stroke="#1a1a1a" stroke-width="2.5"/>
+          <path d="M96 75 C96 60 106 53 123 53 L157 53 C174 53 184 60 184 75 Z" fill="#1a1a1a"/>
+          <rect x="112" y="61" width="22" height="15" rx="6" fill="#FFF" stroke="#1a1a1a" stroke-width="2.5"/>
+          <rect x="146" y="61" width="22" height="15" rx="6" fill="#FFF" stroke="#1a1a1a" stroke-width="2.5"/>
+          <ellipse cx="124" cy="69" rx="4" ry="3" fill="#1a1a1a"/><ellipse cx="158" cy="69" rx="4" ry="3" fill="#1a1a1a"/>
+          <circle cx="126" cy="67" r="1.3" fill="#FFF"/><circle cx="160" cy="67" r="1.3" fill="#FFF"/>
+          <ellipse cx="108" cy="89" rx="6" ry="3" fill="#FF4500" opacity=".22"/><ellipse cx="172" cy="89" rx="6" ry="3" fill="#FF4500" opacity=".22"/>
+          <path d="M132 90 C136 94 144 94 148 90" fill="none" stroke="#1a1a1a" stroke-width="2.2" stroke-linecap="round"/>
+        </g>
+      </svg>
+      <span style="font-size:11px;font-weight:700;color:#999">Back to top? ↑</span>
+    </div>
+  </div>
+</section>
+<section class="process-section">
+  <div class="section-header"><h2>How it works</h2><p>Simple. No confusion. No runaround.</p></div>
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px;max-width:900px;margin:0 auto">
+    <div style="background:var(--yellow);border:2px solid var(--black);border-radius:16px;padding:28px 24px;box-shadow:6px 6px 0 var(--black);text-align:center;transform:translateY(-3px);transition:transform .15s,box-shadow .15s;cursor:default" onmouseover="this.style.transform='translateY(0)';this.style.boxShadow='none'" onmouseout="this.style.transform='translateY(-3px)';this.style.boxShadow='6px 6px 0 #1a1a1a'">
+      <div style="font-family:'Playfair Display',serif;font-size:36px;color:var(--black);margin-bottom:8px">1</div>
+      <h3 style="color:var(--black);margin-bottom:8px;font-size:16px">Discovery Call</h3>
+      <p style="font-size:13px;color:rgba(0,0,0,.7);line-height:1.5">We hop on a quick call to understand what you need and where things are stuck.</p>
+    </div>
+    <div style="background:var(--orange);border:2px solid var(--black);border-radius:16px;padding:28px 24px;box-shadow:6px 6px 0 var(--black);text-align:center;transform:translateY(-3px);transition:transform .15s,box-shadow .15s;cursor:default" onmouseover="this.style.transform='translateY(0)';this.style.boxShadow='none'" onmouseout="this.style.transform='translateY(-3px)';this.style.boxShadow='6px 6px 0 #1a1a1a'">
+      <div style="font-family:'Playfair Display',serif;font-size:36px;color:var(--white);margin-bottom:8px">2</div>
+      <h3 style="color:var(--white);margin-bottom:8px;font-size:16px">Build</h3>
+      <p style="font-size:13px;color:rgba(255,255,255,.8);line-height:1.5">I handle the tech and marketing — you stay focused on your business.</p>
+    </div>
+    <div style="background:var(--teal);border:2px solid var(--black);border-radius:16px;padding:28px 24px;box-shadow:6px 6px 0 var(--black);text-align:center;transform:translateY(-3px);transition:transform .15s,box-shadow .15s;cursor:default" onmouseover="this.style.transform='translateY(0)';this.style.boxShadow='none'" onmouseout="this.style.transform='translateY(-3px)';this.style.boxShadow='6px 6px 0 #1a1a1a'">
+      <div style="font-family:'Playfair Display',serif;font-size:36px;color:var(--white);margin-bottom:8px">3</div>
+      <h3 style="color:var(--white);margin-bottom:8px;font-size:16px">Launch + Support</h3>
+      <p style="font-size:13px;color:rgba(255,255,255,.8);line-height:1.5">Everything goes live. I train you on your systems and stick around to help.</p>
+    </div>
+  </div>
+</section>
+
+</div><!-- end page-home -->
+
+<!-- BUILDS & BLOGS PAGE -->
+<div class="page" id="page-builds">
+  <section style="padding:60px 32px;max-width:800px;margin:0 auto">
+    <div class="section-header"><h2>Builds & Blogs</h2><p>Technical write-ups and lessons from the field.</p></div>
+    <div style="display:flex;flex-direction:column;gap:16px">
+      <div class="bento-card"><span class="bento-tag" style="background:var(--teal);color:#fff;border:none">Build</span><h3 style="margin-top:8px">HubSpot × Xero Integration</h3><p class="desc">How I connected two platforms that don't natively talk to each other.</p></div>
+      <div class="bento-card"><span class="bento-tag" style="background:var(--purple);color:#fff;border:none">Build</span><h3 style="margin-top:8px">Round Robin Lead Allocation</h3><p class="desc">Building a fair lead distribution system inside HubSpot.</p></div>
+      <div class="bento-card"><span class="bento-tag" style="background:#ccc;color:#666;border:none">Coming Soon</span><h3 style="margin-top:8px">Calendly Webhook Automation</h3><p class="desc">Connecting calendar bookings to CRM workflows.</p></div>
+      <div class="bento-card"><span class="bento-tag" style="background:#ccc;color:#666;border:none">Coming Soon</span><h3 style="margin-top:8px">Square Payment Sync</h3><p class="desc">Automating payment data flow between Square and HubSpot.</p></div>
+    </div>
+  </section>
+</div>
+
+<!-- TECH PAGE -->
+<div class="page" id="page-tech">
+  <section style="padding:60px 32px;max-width:800px;margin:0 auto">
+    <div class="section-header"><h2>Tech Services</h2></div>
+    <div style="display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-bottom:32px">
+      <span class="credential-tag">React</span><span class="credential-tag">Next.js</span><span class="credential-tag">TypeScript</span><span class="credential-tag">WordPress</span><span class="credential-tag">Supabase</span><span class="credential-tag">Vercel</span><span class="credential-tag">GitHub</span><span class="credential-tag">Zapier</span>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:16px">
+      <div class="bento-card" style="border-color:var(--teal)"><h3>Custom Builds</h3><p class="desc">Web apps, internal tools, automation scripts — built to solve your specific problem.</p></div>
+      <div class="bento-card" style="border-color:var(--teal)"><h3>Web Development</h3><p class="desc">WordPress or custom coded in React/Next.js. Fast, responsive, SEO-ready.</p></div>
+      <div class="bento-card" style="border-color:var(--teal)"><h3>HubSpot Integrations</h3><p class="desc">Connect HubSpot to Xero, custom APIs, and third-party tools.</p></div>
+      <div class="bento-card" style="border-color:var(--teal)"><h3>HubSpot Setups & Migrations</h3><p class="desc">Clean CRM setup, data migration, and workflow configuration.</p></div>
+    </div>
+    <div style="text-align:center;margin-top:32px">
+      <section class="cta-section"><h2>Need tech help?</h2><p>Let's talk about what you're building.</p><a href="#contact" class="btn btn-primary" onclick="goSection('contact')">Reach Out</a></section>
+    </div>
+  </section>
+</div>
+
+<!-- MARKETING PAGE -->
+<div class="page" id="page-marketing">
+  <section style="padding:60px 32px;max-width:800px;margin:0 auto">
+    <div class="section-header"><h2>Marketing Services</h2></div>
+    <div style="display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-bottom:32px">
+      <span class="credential-tag">HubSpot</span><span class="credential-tag">Google Ads</span><span class="credential-tag">Meta Ads</span><span class="credential-tag">Google Analytics</span><span class="credential-tag">Reddit Ads</span><span class="credential-tag">Figma</span>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:16px">
+      <div class="bento-card" style="border-color:var(--orange)"><h3>Paid Ads Setup</h3><p class="desc">Meta, Google, and Reddit ads — from strategy to launch to optimization.</p></div>
+      <div class="bento-card" style="border-color:var(--orange)"><h3>Email Marketing & Reporting</h3><p class="desc">Campaign setup, sequences, and performance dashboards.</p></div>
+      <div class="bento-card" style="border-color:var(--orange)"><h3>Funnels & Landing Pages</h3><p class="desc">High-converting pages and lead capture flows.</p></div>
+      <div class="bento-card" style="border-color:var(--orange)"><h3>Marketing Automation</h3><p class="desc">Workflows, triggers, and nurture sequences that run on autopilot.</p></div>
+    </div>
+    <div style="text-align:center;margin-top:32px">
+      <section class="cta-section"><h2>Ready to grow?</h2><p>Let's set up marketing that actually works.</p><a href="#contact" class="btn btn-primary" onclick="goSection('contact')">Reach Out</a></section>
+    </div>
+  </section>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div style="max-width:900px;margin:0 auto;display:flex;flex-wrap:wrap;justify-content:space-between;align-items:start;gap:32px;padding-bottom:20px;margin-bottom:20px;border-bottom:1px solid #e8e8e8">
+    <div>
+      <div style="font-weight:900;font-size:24px;color:var(--orange);margin-bottom:8px">JD</div>
+      <p style="font-size:14px;color:#888;max-width:260px;line-height:1.6">Trained in code. Fluent in marketing.</p>
+    </div>
+    <div style="display:flex;gap:40px">
+      <div>
+        <p style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:#aaa;margin-bottom:10px">Navigate</p>
+        <div style="display:flex;flex-direction:column;gap:6px">
+          <a style="font-size:14px;color:#555;text-decoration:none;cursor:pointer" onclick="goSection('projects')">Projects</a>
+          <a style="font-size:14px;color:#555;text-decoration:none;cursor:pointer" onclick="showPage('builds')">Builds & Blogs</a>
+          <a style="font-size:14px;color:#555;text-decoration:none;cursor:pointer" onclick="goSection('contact')">Contact</a>
+        </div>
+      </div>
+      <div>
+        <p style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:#aaa;margin-bottom:10px">Services</p>
+        <div style="display:flex;flex-direction:column;gap:6px">
+          <a style="font-size:14px;color:#555;text-decoration:none;cursor:pointer" onclick="showPage('tech')">Tech</a>
+          <a style="font-size:14px;color:#555;text-decoration:none;cursor:pointer" onclick="showPage('marketing')">Marketing</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <p style="font-size:13px;color:#bbb">&copy; 2026 Josiah Dalisay. All rights reserved. &nbsp;·&nbsp; <a href="#" style="color:#bbb;text-decoration:none">Privacy Policy</a></p>
+</footer>
+
+<script>
+function bugConfetti(e){
+  var logos=['https://cdn.simpleicons.org/react/61DAFB','https://cdn.simpleicons.org/nextdotjs/000','https://cdn.simpleicons.org/wordpress/21759B','https://cdn.simpleicons.org/hubspot/FF7A59','https://cdn.simpleicons.org/googleads/4285F4','https://cdn.simpleicons.org/meta/0081FB','https://cdn.simpleicons.org/zapier/FF4A00','https://cdn.simpleicons.org/supabase/3FCF8E','https://cdn.simpleicons.org/vercel/000','https://cdn.simpleicons.org/typescript/3178C6','https://cdn.simpleicons.org/github/181717','https://cdn.simpleicons.org/figma/F24E1E'];
+  var emojis=['💻','📊','📧','🎯','⚡','🔗','⚙️'];
+  var x=e.clientX||e.pageX,y=e.clientY||e.pageY;
+  for(var i=0;i<20;i++){var el=document.createElement('div');if(Math.random()>.4){var img=document.createElement('img');img.src=logos[Math.floor(Math.random()*logos.length)];img.style.cssText='width:24px;height:24px';el.appendChild(img)}else{el.textContent=emojis[Math.floor(Math.random()*emojis.length)];el.style.fontSize='20px'}el.style.cssText+='position:fixed;z-index:99999;pointer-events:none;left:'+x+'px;top:'+y+'px;';var a=Math.random()*Math.PI*2,v=80+Math.random()*120,dx=Math.cos(a)*v,dy=Math.sin(a)*v-80,r=(Math.random()-.5)*720;el.animate([{transform:'translate(0,0) rotate(0deg) scale(1)',opacity:1},{transform:'translate('+dx+'px,'+dy+'px) rotate('+r+'deg) scale(0.3)',opacity:0}],{duration:800+Math.random()*400,easing:'cubic-bezier(.25,.46,.45,.94)'});document.body.appendChild(el);setTimeout(function(e){e.remove()}.bind(null,el),1200)}
+}
+function showPage(p){document.querySelectorAll('.page').forEach(function(x){x.classList.remove('active')});document.getElementById('page-'+p).classList.add('active');window.scrollTo({top:0,behavior:'smooth'})}
+function goSection(id){showPage('home');setTimeout(function(){var el=document.getElementById(id);if(el)el.scrollIntoView({behavior:'smooth'})},120)}
+</script>
+</body>
+</html>
