@@ -15,6 +15,8 @@ export type ServiceDiscipline = {
   /** Expanded cards shown on the discipline's own page. */
   detail: readonly { title: string; description: string }[];
   cta: { heading: string; body: string };
+  /** Meta description for this discipline's page. */
+  metaDescription: string;
 };
 
 export const disciplines: readonly ServiceDiscipline[] = [
@@ -65,6 +67,8 @@ export const disciplines: readonly ServiceDiscipline[] = [
       heading: "Need tech help?",
       body: "Let's talk about what you're building.",
     },
+    metaDescription:
+      "Custom builds, web development, HubSpot integrations, setups and migrations. Josiah Dalisay builds the systems behind your marketing.",
   },
   {
     key: "marketing",
@@ -103,6 +107,8 @@ export const disciplines: readonly ServiceDiscipline[] = [
       heading: "Ready to grow?",
       body: "Let's set up marketing that actually works.",
     },
+    metaDescription:
+      "Paid ads, email marketing, funnels and landing pages, and marketing automation. Josiah Dalisay runs the marketing that fills your pipeline.",
   },
 ] as const;
 

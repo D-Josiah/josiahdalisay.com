@@ -15,8 +15,25 @@ function Leg({ d, foot }: { d: string; foot: readonly [number, number] }) {
   const [cx, cy] = foot;
   return (
     <>
+      {/* A lit core over a dark base turns the flat stroke into a tube. */}
       <path d={d} fill="none" stroke={ink} strokeWidth="5.5" strokeLinecap="round" />
-      <ellipse cx={cx} cy={cy} rx="7" ry="4" fill={orange} stroke={ink} strokeWidth="1.8" />
+      <path
+        d={d}
+        fill="none"
+        stroke="#5a5a5a"
+        strokeWidth="2"
+        strokeLinecap="round"
+        opacity=".5"
+      />
+      <ellipse
+        cx={cx}
+        cy={cy}
+        rx="7"
+        ry="4"
+        fill="url(#bug-shell)"
+        stroke={ink}
+        strokeWidth="1.8"
+      />
     </>
   );
 }
@@ -67,6 +84,8 @@ export function Legs({ walking = false }: { walking?: boolean }) {
 export function Shell() {
   return (
     <>
+      {/* Contact shadow, so it stands on the ground instead of floating. */}
+      <ellipse cx="140" cy="128" rx="46" ry="9" fill="url(#bug-ground)" />
       <line
         x1="140"
         y1="53"
@@ -76,20 +95,49 @@ export function Shell() {
         strokeWidth="2.5"
         strokeLinecap="round"
       />
-      <circle cx="140" cy="36" r="4.5" fill={yellow} stroke={ink} strokeWidth="2" />
+      <circle cx="140" cy="36" r="4.5" fill="url(#bug-bulb)" stroke={ink} strokeWidth="2" />
+      <circle cx="138.5" cy="34.5" r="1.4" fill="#FFF" opacity=".8" />
       <rect
         x="96"
         y="53"
         width="88"
         height="58"
         rx="27"
-        fill={orange}
+        fill="url(#bug-shell)"
         stroke={ink}
         strokeWidth="2.5"
       />
-      <path d="M96 75 C96 60 106 53 123 53 L157 53 C174 53 184 60 184 75 Z" fill={ink} />
-      <ellipse cx="108" cy="89" rx="6" ry="3" fill={orange} opacity=".22" />
-      <ellipse cx="172" cy="89" rx="6" ry="3" fill={orange} opacity=".22" />
+      {/* Shadow the dome casts onto the shell just below it. */}
+      <path
+        d="M96 75 C110 86 170 86 184 75 L184 83 C170 94 110 94 96 83 Z"
+        fill="#000"
+        opacity=".16"
+      />
+      <path
+        d="M96 75 C96 60 106 53 123 53 L157 53 C174 53 184 60 184 75 Z"
+        fill="url(#bug-dome)"
+      />
+      {/* Specular streak across the dome. */}
+      <ellipse
+        cx="124"
+        cy="62"
+        rx="17"
+        ry="6"
+        fill="url(#bug-gloss)"
+        transform="rotate(-12 124 62)"
+      />
+      <ellipse cx="108" cy="89" rx="6" ry="3" fill="#B82B00" opacity=".3" />
+      <ellipse cx="172" cy="89" rx="6" ry="3" fill="#B82B00" opacity=".3" />
+      {/* Bounce light along the lower-left curve. */}
+      <ellipse
+        cx="117"
+        cy="100"
+        rx="13"
+        ry="5"
+        fill="url(#bug-gloss)"
+        opacity=".45"
+        transform="rotate(-18 117 100)"
+      />
     </>
   );
 }
@@ -104,7 +152,7 @@ export function EyeWhites() {
         width="22"
         height="15"
         rx="6"
-        fill="#FFF"
+        fill="url(#bug-eye)"
         stroke={ink}
         strokeWidth="2.5"
       />
@@ -114,7 +162,7 @@ export function EyeWhites() {
         width="22"
         height="15"
         rx="6"
-        fill="#FFF"
+        fill="url(#bug-eye)"
         stroke={ink}
         strokeWidth="2.5"
       />

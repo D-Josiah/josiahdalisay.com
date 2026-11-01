@@ -18,11 +18,11 @@ export const projects: readonly Project[] = [
     slug: "lsat-academy",
     title: "LSAT Academy",
     description:
-      "Full marketing system: website, CRM, funnels, Google Ads, email sequences.",
+      "Full marketing system: website, CRM, funnels, Reddit Ads, email sequences.",
     tone: "teal",
     tags: ["Tech + Marketing"],
     featured: true,
-    live: { url: "https://lsatacademy.com.au" },
+    live: { url: "https://www.lsat.academy/" },
   },
   {
     slug: "hubspot-xero",
@@ -34,8 +34,8 @@ export const projects: readonly Project[] = [
     link: { href: "/builds", label: "Read the Build Log ↗" },
   },
   {
-    slug: "round-robin",
-    title: "Round Robin Allocation",
+    slug: "sales-team-allocation",
+    title: "Sales Team Allocation",
     description: "Automated lead routing system for balanced sales team distribution.",
     tone: "purple",
     tags: ["HubSpot", "Sales Ops"],
@@ -46,6 +46,22 @@ export const projects: readonly Project[] = [
     description: "Webhook-driven workflows connecting Calendly events to HubSpot CRM.",
     tone: "teal",
     tags: ["HubSpot", "Webhooks"],
+  },
+  {
+    slug: "custom-crm-portals",
+    title: "Custom CRMs & Client Portals",
+    description:
+      "Lightweight CRMs and client-facing portals for teams an off-the-shelf tool doesn't fit. Built around how you already work, not the other way round.",
+    tone: "orange",
+    tags: ["Next.js", "Supabase", "Auth"],
+  },
+  {
+    slug: "virtual-office",
+    title: "Virtual Office",
+    description:
+      "An animated office where my AI agents work at desks and queue at mine for approval, with every client's tasks on one board. Claude connects over MCP, so agents file work and ask for sign-off live.",
+    tone: "purple",
+    tags: ["Next.js", "Supabase", "MCP"],
   },
   {
     slug: "square-automation",

@@ -52,38 +52,38 @@
     transform: translateY(-6px);
   }
 }
+/*
+ * The bug paces back and forth, turning at each end.
+ *
+ * The turn is a real rotateY rather than scaleX(-1): the character is
+ * close to bilaterally symmetrical, so a mirror is almost invisible and
+ * reads as a snap rather than a turn. Rotating through perspective shows
+ * the body foreshorten and swing round, which is what sells it now that
+ * the mascot is shaded for volume.
+ *
+ * The angle only ever increases — 0 to 180 to 360 — so it always turns
+ * the same way instead of unwinding back the way it came.
+ */
 @keyframes walk-across {
   0% {
     left: 5%;
-    transform: scaleX(1);
+    transform: perspective(320px) rotateY(0deg);
   }
-  45% {
+  42% {
     left: 75%;
-    transform: scaleX(1);
+    transform: perspective(320px) rotateY(0deg);
   }
   50% {
     left: 75%;
-    transform: scaleX(-1);
+    transform: perspective(320px) rotateY(180deg);
   }
-  95% {
+  92% {
     left: 5%;
-    transform: scaleX(-1);
+    transform: perspective(320px) rotateY(180deg);
   }
   100% {
     left: 5%;
-    transform: scaleX(1);
-  }
-}
-@keyframes leg-swing {
-  0%,
-  100% {
-    transform: rotate(0deg);
-  }
-  25% {
-    transform: rotate(8deg);
-  }
-  75% {
-    transform: rotate(-8deg);
+    transform: perspective(320px) rotateY(360deg);
   }
 }
 @keyframes body-bounce {

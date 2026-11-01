@@ -1,9 +1,4 @@
-import {
-  Laptop,
-  mascotInk as ink,
-  mascotOrange as orange,
-  mascotYellow as yellow,
-} from "./parts";
+import { Laptop, mascotInk as ink } from "./parts";
 
 /**
  * The bug peeking over the "Projects" heading, tilted and blinking
@@ -47,14 +42,21 @@ export function PeekBug({ className }: { className?: string }) {
           strokeWidth="2.5"
           strokeLinecap="round"
         />
-        <circle cx="178" cy="85" r="4.5" fill={yellow} stroke={ink} strokeWidth="2" />
+        <circle
+          cx="178"
+          cy="85"
+          r="4.5"
+          fill="url(#bug-bulb)"
+          stroke={ink}
+          strokeWidth="2"
+        />
         <rect
           x="130"
           y="102"
           width="88"
           height="56"
           rx="26"
-          fill={orange}
+          fill="url(#bug-shell)"
           stroke={ink}
           strokeWidth="2.5"
           transform="rotate(-6 174 130)"
@@ -62,7 +64,7 @@ export function PeekBug({ className }: { className?: string }) {
         <g transform="rotate(-6 174 130)">
           <path
             d="M130 123 C130 109 140 102 156 102 L192 102 C208 102 218 109 218 123 Z"
-            fill={ink}
+            fill="url(#bug-dome)"
           />
           <rect
             x="140"
@@ -70,7 +72,7 @@ export function PeekBug({ className }: { className?: string }) {
             width="22"
             height="15"
             rx="6"
-            fill="#FFF"
+            fill="url(#bug-eye)"
             stroke={ink}
             strokeWidth="2.5"
           />
@@ -80,7 +82,7 @@ export function PeekBug({ className }: { className?: string }) {
             width="22"
             height="15"
             rx="6"
-            fill="#FFF"
+            fill="url(#bug-eye)"
             stroke={ink}
             strokeWidth="2.5"
           />
@@ -110,7 +112,16 @@ export function PeekBug({ className }: { className?: string }) {
             </text>
           </g>
 
-          <ellipse cx="142" cy="138" rx="6" ry="3" fill={orange} opacity=".22" />
+          {/* Specular streak across the dome. */}
+          <ellipse
+            cx="158"
+            cy="112"
+            rx="16"
+            ry="5"
+            fill="url(#bug-gloss)"
+            transform="rotate(-10 158 112)"
+          />
+          <ellipse cx="142" cy="138" rx="6" ry="3" fill="#B82B00" opacity=".3" />
 
           {/* Smile */}
           <g>
@@ -147,7 +158,7 @@ export function PeekBug({ className }: { className?: string }) {
             cy={foot[1]}
             rx="7"
             ry="4"
-            fill={orange}
+            fill="url(#bug-shell)"
             stroke={ink}
             strokeWidth="1.8"
           />

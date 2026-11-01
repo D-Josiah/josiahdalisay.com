@@ -41,7 +41,9 @@ export function Hero() {
             priority
             className="size-20 rounded-full border-2 border-white object-cover"
           />
-          <p className="max-w-[400px] text-left text-[15px] leading-relaxed text-white">
+          {/* Centred while the portrait sits above it; left-aligned once the
+              two sit side by side. */}
+          <p className="max-w-[400px] text-center text-[15px] leading-relaxed text-white sm:text-left">
             {site.intro}
           </p>
         </div>
@@ -63,6 +65,12 @@ export function Hero() {
             </li>
           ))}
         </ul>
+
+        {/* Most of the people reading this are in another country. The one
+            thing they need answered before anything else is whether the
+            hours work, so it sits above the fold rather than on a page
+            they would have to go looking for. */}
+        <p className="mt-5 text-[13px] text-white/75">{site.availability}</p>
       </div>
     </section>
   );
